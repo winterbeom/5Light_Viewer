@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "350116650094",
+    "project_id": "kwang-de97e",
+    "storage_bucket": "kwang-de97e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:350116650094:android:00dd4a0d8164af8ad61a7f",
+        "android_client_info": {
+          "package_name": "com.example.a5light"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "350116650094-kdia88c3ojc3ntpk44vkc13oh74i5cq1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_FoZqbRpVuappqUPiJ6Qx4GU7NAce-BM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "350116650094-kdia88c3ojc3ntpk44vkc13oh74i5cq1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

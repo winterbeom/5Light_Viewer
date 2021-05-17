@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 
+import com.example.a5light.Constants.Constants;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import retrofit2.Callback;
@@ -37,6 +38,9 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
         bottomNavigationView.setSelectedItemId(R.id.viewer);
+
+        String token = getSharedPreferences(Constants.PREFERENCE, MODE_PRIVATE).getString(Constants.FCM_KEY,"");
+        Log.e("fcm", token);
 
 
     }
