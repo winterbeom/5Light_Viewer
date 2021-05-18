@@ -6,17 +6,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.nfc.Tag;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 
-import com.example.a5light.Constants.Constants;
+import com.example.a5light.constants.Constants;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import retrofit2.Callback;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MenuActivity extends AppCompatActivity {
     private FragmentManager fragmentManager = getSupportFragmentManager();
@@ -38,9 +33,6 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
         bottomNavigationView.setSelectedItemId(R.id.viewer);
-
-        String token = getSharedPreferences(Constants.PREFERENCE, MODE_PRIVATE).getString(Constants.FCM_KEY,"");
-        Log.e("fcm", token);
 
 
     }
@@ -73,6 +65,12 @@ public class MenuActivity extends AppCompatActivity {
         fragmentTransaction.setPrimaryNavigationFragment(fragment);
         fragmentTransaction.setReorderingAllowed(true);
         fragmentTransaction.commitNow();
+    }
+
+
+    public int getUserId() {
+        SharedPreferences pref = getSharedPreferences(Constants.PREFERENCE, MODE_PRIVATE);
+        return pref.getInt(Constants.USER_ID_KEY, -1);
     }
 }
 

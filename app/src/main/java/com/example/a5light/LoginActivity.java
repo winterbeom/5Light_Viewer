@@ -1,6 +1,5 @@
 package com.example.a5light;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -11,8 +10,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.a5light.Constants.Constants;
+import com.example.a5light.constants.Constants;
+import com.example.a5light.fcm.FCMMessagingService;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.FirebaseMessagingService;
+
+import pyxis.uzuki.live.richutilskt.impl.F1;
 
 public class LoginActivity extends AppCompatActivity {
     Button btn_get;
@@ -53,23 +56,17 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-
     public void getToken() {
-        FirebaseMessaging.getInstance().getToken()
-                .addOnCompleteListener(task -> {
-                    if (!task.isSuccessful()) {
-                        Log.w("fcm", "Fetching FCM registration token failed", task.getException());
-                        return;
-                    }
+        FCMMessagingService.getToken(token->{
+            Log.e(this.getClass().getSimpleName(),token);
+        });
+    }
 
-                    // Get new FCM registration token
-                    String token = task.getResult();
-
-                    SharedPreferences sharedPreferences = getSharedPreferences(Constants.PREFERENCE, MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString(Constants.FCM_KEY, token); // key, value를 이용하여 저장하는 형태
-                    editor.commit();
-                });
+    public void saveUserId(int userId) {
+        SharedPreferences pref = getSharedPreferences(Constants.PREFERENCE, MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putInt(Constants.USER_ID_KEY, userId);
+        editor.apply();
     }
 
 }

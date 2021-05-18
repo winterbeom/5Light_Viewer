@@ -7,7 +7,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.example.a5light.Constants.Constants;
+import com.example.a5light.constants.Constants;
 import com.example.a5light.notification.NotificationTool;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -18,7 +18,7 @@ import com.google.firebase.messaging.RemoteMessage;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.inject.Inject;
+import pyxis.uzuki.live.richutilskt.impl.F1;
 
 public class FCMMessagingService extends FirebaseMessagingService {
 
@@ -54,5 +54,15 @@ public class FCMMessagingService extends FirebaseMessagingService {
         } else {
             NotificationTool.show(this, content, title, extrasMap);
         }
+    }
+
+    public static void getToken(F1<String> callback) {
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull Task<String> task) {
+                Log.d("FCM", String.format("getToken: %s", task.getResult()));
+                callback.invoke(task.getResult());
+            }
+        });
     }
 }
