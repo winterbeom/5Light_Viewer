@@ -94,6 +94,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                     Toast.makeText(view.getContext(),"클릭 되었습니다", Toast.LENGTH_SHORT).show();
                 intent = new Intent(view.getContext(),Detail.class);
                 intent.putExtra("number", position);
+                intent.putExtra("url",dataList.get(position).getDetect_thumbnail());
                 intent.putExtra("name",dataList.get(position).getDetect_name());
                 intent.putExtra("date",dataList.get(position).getDetect_date());
                 view.getContext().startActivity(intent);

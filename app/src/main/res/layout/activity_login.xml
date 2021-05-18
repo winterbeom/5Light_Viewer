@@ -8,6 +8,7 @@
     tools:context=".LoginActivity">
 
     <TextView
+        android:textColor="@color/black"
         android:textStyle="bold"
         android:layout_marginTop="150dp"
         android:textSize="60sp"
@@ -25,6 +26,7 @@
         android:gravity="center" >
 
         <EditText
+
             android:layout_marginLeft="15sp"
             android:id="@+id/idPhone"
             android:textSize="15sp"

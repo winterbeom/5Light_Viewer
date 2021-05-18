@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -46,6 +48,10 @@ public class Frag2 extends Fragment {
             layoutManager = new LinearLayoutManager(context);
             recyclerView.setLayoutManager(layoutManager);
 
+            //리사이클러뷰 구분선 &아이템 간격 설정
+        recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
+        RecyclerViewDecoration spaceDecoration = new RecyclerViewDecoration(20);
+        recyclerView.addItemDecoration(spaceDecoration);
 
 
         RetrofitService retrofitService = ApiClient.getClient().create(RetrofitService.class);
