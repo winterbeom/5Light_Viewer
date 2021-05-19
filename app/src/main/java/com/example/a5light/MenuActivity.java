@@ -11,7 +11,17 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.a5light.constants.Constants;
+import com.example.a5light.data.Detect_Data;
+import com.example.a5light.fcm.FCMMessagingService;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.messaging.FcmBroadcastProcessor;
+import com.google.gson.JsonObject;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MenuActivity extends AppCompatActivity {
     private FragmentManager fragmentManager = getSupportFragmentManager();
@@ -34,6 +44,7 @@ public class MenuActivity extends AppCompatActivity {
         });
         bottomNavigationView.setSelectedItemId(R.id.viewer);
 
+        updateToken();
 
     }
 
@@ -71,6 +82,24 @@ public class MenuActivity extends AppCompatActivity {
     public int getUserId() {
         SharedPreferences pref = getSharedPreferences(Constants.PREFERENCE, MODE_PRIVATE);
         return pref.getInt(Constants.USER_ID_KEY, -1);
+    }
+
+    public void updateToken() {
+        RetrofitService retrofitService = ApiClient.getClient().create(RetrofitService.class);
+        FCMMessagingService.getToken(token -> {
+            Call<JsonObject> call = retrofitService.updateToken(Integer.toString(getUserId()), token);
+            call.enqueue(new Callback<JsonObject>(){
+                @Override
+                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+
+                }
+
+                @Override
+                public void onFailure(Call<JsonObject> call, Throwable t) {
+
+                }
+            });
+        });
     }
 }
 

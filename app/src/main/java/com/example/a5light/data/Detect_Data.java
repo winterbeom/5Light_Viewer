@@ -1,4 +1,4 @@
-package com.example.a5light;
+package com.example.a5light.data;
 
 import android.graphics.drawable.Drawable;
 
