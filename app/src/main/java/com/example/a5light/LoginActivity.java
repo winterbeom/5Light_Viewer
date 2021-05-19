@@ -40,8 +40,8 @@ public class LoginActivity extends AppCompatActivity {
         this.InitalizeView();
 
         getToken();
-        Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+//        startActivity(intent);
     }
 
     public void InitalizeView() {

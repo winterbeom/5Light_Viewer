@@ -24,8 +24,14 @@ import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.BandwidthMeter;
+import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
+import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
+import com.google.android.exoplayer2.upstream.RawResourceDataSource;
+import com.google.android.exoplayer2.util.Util;
+
+import pyxis.uzuki.live.richutilskt.utils.RichUtils;
 
 public class Frag1 extends Fragment
 {
@@ -47,44 +53,20 @@ public class Frag1 extends Fragment
         Context context = view.getContext();
         exoPlayerView = view.findViewById(R.id.player_view);
         try {
-
-            // bandwisthmeter is used for
-            // getting default bandwidth
             BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
 
-            // track selector is used to navigate between
-            // video using a default seekbar.
             TrackSelector trackSelector = new DefaultTrackSelector(new AdaptiveTrackSelection.Factory(bandwidthMeter));
 
             // we are adding our track selector to exoplayer.
-            exoPlayer = ExoPlayerFactory.newSimpleInstance(getContext(), trackSelector);
+            exoPlayer = ExoPlayerFactory.newSimpleInstance(inflater.getContext(), trackSelector);
 
-            // we are parsing a video url
-            // and parsing its video uri.
-            Uri videouri = Uri.parse(videoURL);
+            DataSource.Factory dataSourceFactory1 = new DefaultDataSourceFactory(requireActivity(), Util.getUserAgent(requireActivity(), requireActivity().getPackageName()));
+            MediaSource firstSource = new ExtractorMediaSource.Factory(dataSourceFactory1).createMediaSource(RawResourceDataSource.buildRawResourceUri(R.raw.panorama_sample));
 
-            // we are creating a variable for datasource factory
-            // and setting its user agent as 'exoplayer_view'
-            DefaultHttpDataSourceFactory dataSourceFactory = new DefaultHttpDataSourceFactory("exoplayer_video");
-
-            // we are creating a variable for extractor factory
-            // and setting it to default extractor factory.
-            ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
-
-            // we are creating a media source with above variables
-            // and passing our event handler as null,
-            MediaSource mediaSource = new ExtractorMediaSource(videouri, dataSourceFactory, extractorsFactory, null, null);
-
-            // inside our exoplayer view
-            // we are setting our player
             exoPlayerView.setPlayer(exoPlayer);
 
-            // we are preparing our exoplayer
-            // with media source.
-            exoPlayer.prepare(mediaSource);
+            exoPlayer.prepare(firstSource);
 
-            // we are setting our exoplayer
-            // when it is ready.
 //            exoPlayer.setPlayWhenReady(true);
 
         } catch (Exception e) {
