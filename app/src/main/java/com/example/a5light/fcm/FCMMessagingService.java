@@ -42,7 +42,7 @@ public class FCMMessagingService extends FirebaseMessagingService {
             return;
         }
 
-        String title = remoteMessage.getData().get("deviceId");
+        String title = remoteMessage.getData().get("title");
         String content = remoteMessage.getData().get("body");
         String extra = remoteMessage.getData().get("extra");
 
