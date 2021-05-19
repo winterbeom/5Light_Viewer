@@ -16,6 +16,7 @@ import com.example.a5light.data.UserData;
 import com.example.a5light.fcm.FCMMessagingService;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingService;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import pyxis.uzuki.live.richutilskt.impl.F1;
@@ -26,7 +27,10 @@ import retrofit2.Response;
 public class LoginActivity extends AppCompatActivity {
     Button btn_signup;
     Button btn_login;
-    EditText id;
+    EditText login_email;
+    EditText login_passwd;
+    String email;
+    String passwd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +43,8 @@ public class LoginActivity extends AppCompatActivity {
     public void InitalizeView() {
         btn_signup = (Button) findViewById(R.id.btn_signup);
         btn_login = (Button) findViewById(R.id.btn_login);
+        login_email = (EditText)findViewById(R.id.login_email);
+        login_passwd = (EditText)findViewById(R.id.login_passwd);
 
     }
 
@@ -53,40 +59,28 @@ public class LoginActivity extends AppCompatActivity {
 
             case R.id.btn_login:
                 //여기서 다시 서버로 아이디와 pass word 전송
+                email = login_email.getText().toString();
+                passwd = login_passwd.getText().toString();
                 UserData userData = new UserData();
-                userData.setEmail("sdfasfdas");
-                userData.setPassword("sdfasfdas");
-
+                userData.setEmail(email);
+                userData.setPassword(passwd);
+                userData.setName("");
                 RetrofitService retrofitService = ApiClient.getClient().create(RetrofitService.class);
                 Call<JsonObject> call = retrofitService.login(userData);
                 call.enqueue(new Callback<JsonObject>() {
                     @Override
                     public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                        if (true) {
-                            saveUserId(-1);
-                            Intent intent_menu = new Intent(getApplicationContext(), MenuActivity.class);
-                            startActivity(intent_menu);
-                        } else {
-                            Toast.makeText(getApplicationContext(), "아이디 혹은 비밀번호가 틀렸습니다.", Toast.LENGTH_SHORT).show();
-                        }
-                    }
+                            int a = 1;
+//                         int a= response.body()
 
+                        Toast.makeText(getApplicationContext(),  Integer.toString(a)+"수신 성공", Toast.LENGTH_SHORT).show();
+                    }
                     @Override
                     public void onFailure(Call<JsonObject> call, Throwable t) {
-                        Toast.makeText(getApplicationContext(), "아이디 혹은 비밀번호가 틀렸습니다.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),  "수신 실패", Toast.LENGTH_SHORT).show();
                     }
                 });
-
-                //맞으면
-                Intent intent_menu = new Intent(getApplicationContext(), MenuActivity.class);
-                startActivity(intent_menu);
-                //틀리면
-                Toast.makeText(this.getApplicationContext(), "아이디 혹은 비밀번호가 틀렸습니다.", Toast.LENGTH_SHORT).show();
-
-
                 break;
-
-
         }
     }
 

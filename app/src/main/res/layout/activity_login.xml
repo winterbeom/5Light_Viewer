@@ -25,7 +25,7 @@
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="100dp"
-        android:id="@+id/idPhone"
+        android:id="@+id/login_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -33,11 +33,12 @@
         android:hint="아이디 또는 이메일"
         android:textSize="20sp" />
     <EditText
+        android:inputType="textPassword"
         android:padding="15dp"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
-        android:id="@+id/idPhone"
+        android:id="@+id/login_passwd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
