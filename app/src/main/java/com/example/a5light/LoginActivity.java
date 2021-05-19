@@ -12,11 +12,16 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.a5light.constants.Constants;
+import com.example.a5light.data.UserData;
 import com.example.a5light.fcm.FCMMessagingService;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingService;
+import com.google.gson.JsonObject;
 
 import pyxis.uzuki.live.richutilskt.impl.F1;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
     Button btn_signup;
@@ -46,26 +51,48 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent_signup);
                 break;
 
-                case R.id.btn_login:
+            case R.id.btn_login:
                 //여기서 다시 서버로 아이디와 pass word 전송
+                UserData userData = new UserData();
+                userData.setEmail("sdfasfdas");
+                userData.setPassword("sdfasfdas");
+
+                RetrofitService retrofitService = ApiClient.getClient().create(RetrofitService.class);
+                Call<JsonObject> call = retrofitService.login(userData);
+                call.enqueue(new Callback<JsonObject>() {
+                    @Override
+                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                        if (true) {
+                            saveUserId(-1);
+                            Intent intent_menu = new Intent(getApplicationContext(), MenuActivity.class);
+                            startActivity(intent_menu);
+                        } else {
+                            Toast.makeText(getApplicationContext(), "아이디 혹은 비밀번호가 틀렸습니다.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<JsonObject> call, Throwable t) {
+                        Toast.makeText(getApplicationContext(), "아이디 혹은 비밀번호가 틀렸습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
                 //맞으면
                 Intent intent_menu = new Intent(getApplicationContext(), MenuActivity.class);
                 startActivity(intent_menu);
                 //틀리면
-                Toast.makeText(this.getApplicationContext(),"아이디 혹은 비밀번호가 틀렸습니다.",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this.getApplicationContext(), "아이디 혹은 비밀번호가 틀렸습니다.", Toast.LENGTH_SHORT).show();
 
 
                 break;
-
 
 
         }
     }
 
     public void getToken() {
-        FCMMessagingService.getToken(token->{
-            Log.e(this.getClass().getSimpleName(),token);
+        FCMMessagingService.getToken(token -> {
+            Log.e(this.getClass().getSimpleName(), token);
         });
     }
 
