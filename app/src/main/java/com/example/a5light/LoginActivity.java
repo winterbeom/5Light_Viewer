@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.a5light.constants.Constants;
 import com.example.a5light.fcm.FCMMessagingService;
@@ -18,7 +19,7 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import pyxis.uzuki.live.richutilskt.impl.F1;
 
 public class LoginActivity extends AppCompatActivity {
-    Button btn_get;
+    Button btn_signup;
     Button btn_login;
     EditText id;
 
@@ -27,30 +28,36 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         this.InitalizeView();
-
-
         getToken();
     }
 
     public void InitalizeView() {
-        btn_get = (Button) findViewById(R.id.btn_get);
+        btn_signup = (Button) findViewById(R.id.btn_signup);
         btn_login = (Button) findViewById(R.id.btn_login);
-        id = (EditText) findViewById(R.id.idNum);
+
     }
 
     public void onClick(View view) {
 
         switch (view.getId()) {
-            case R.id.btn_get:
+            case R.id.btn_signup:
+                //여기서 서버로 이름, 아이디(이메일) ,password 전송
+                Intent intent_signup = new Intent(getApplicationContext(), SignUpActivity.class);
+                startActivity(intent_signup);
+                break;
 
-                btn_get.setText("재전송");
-                id.setVisibility(View.VISIBLE);
+                case R.id.btn_login:
+                //여기서 다시 서버로 아이디와 pass word 전송
+
+                //맞으면
+                Intent intent_menu = new Intent(getApplicationContext(), MenuActivity.class);
+                startActivity(intent_menu);
+                //틀리면
+                Toast.makeText(this.getApplicationContext(),"아이디 혹은 비밀번호가 틀렸습니다.",Toast.LENGTH_SHORT).show();
+
+
                 break;
-            case R.id.btn_login:
-                Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
-                startActivity(intent);
-                break;
-            // 다른 화면으로 전환
+
 
 
         }

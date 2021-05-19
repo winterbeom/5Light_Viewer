@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:orientation="vertical">
+    <TextView
+        android:layout_marginLeft="10sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:layout_marginTop="50dp"
+        android:textSize="40sp"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="회원가입"
+        />
+
+    <TextView
+        android:layout_marginLeft="15sp"
+        android:textColor="@color/black"
+
+        android:layout_marginTop="120dp"
+        android:textSize="20sp"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="이름"
+        />
+
+    <EditText
+        android:id="@+id/signup_name"
+        android:layout_width="match_parent"
+        android:layout_height="40sp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="15sp"
+        android:layout_marginRight="15sp"
+        android:gravity="center"
+        android:hint="실명을 입력해주세요"
+        android:textSize="15sp" />
+
+    <TextView
+    android:layout_marginLeft="15sp"
+    android:textColor="@color/black"
+    android:layout_marginTop="30dp"
+    android:textSize="20sp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="아이디(이메일)"
+    />
+
+    <EditText
+        android:id="@+id/signup_id"
+        android:layout_marginTop="5sp"
+        android:layout_width="match_parent"
+        android:layout_height="40sp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="15sp"
+        android:layout_marginRight="15sp"
+        android:gravity="center"
+        android:hint="아이디(이메일)을 입력해주세요"
+        android:textSize="15sp" />
+    <TextView
+        android:layout_marginLeft="15sp"
+        android:textColor="@color/black"
+
+        android:layout_marginTop="30dp"
+        android:textSize="20sp"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="비밀번호"
+        />
+
+    <EditText
+        android:id="@+id/signup_password"
+        android:layout_width="match_parent"
+        android:layout_height="40sp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="15sp"
+        android:layout_marginRight="15sp"
+        android:gravity="center"
+        android:hint="비밀번호를 입력해주세요"
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/signup_finish"
+        app:backgroundTint ="@null"
+        android:background="@drawable/button_circle"
+        android:backgroundTint="@color/blue"
+        android:layout_width="match_parent"
+        android:layout_marginTop="30dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="15sp"
+        android:layout_marginRight="15sp"
+        android:gravity="center"
+        android:onClick="onClick"
+        android:text="완료"
+        android:textSize="20sp" />
+</LinearLayout>
+
+
+
+
+
