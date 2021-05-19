@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,14 +38,17 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         this.InitalizeView();
+
         getToken();
+        Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+        startActivity(intent);
     }
 
     public void InitalizeView() {
         btn_signup = (Button) findViewById(R.id.btn_signup);
         btn_login = (Button) findViewById(R.id.btn_login);
-        login_email = (EditText)findViewById(R.id.login_email);
-        login_passwd = (EditText)findViewById(R.id.login_passwd);
+        login_email = (EditText) findViewById(R.id.login_email);
+        login_passwd = (EditText) findViewById(R.id.login_passwd);
 
     }
 
@@ -66,19 +70,27 @@ public class LoginActivity extends AppCompatActivity {
                 userData.setPassword(passwd);
                 userData.setName("");
                 RetrofitService retrofitService = ApiClient.getClient().create(RetrofitService.class);
-                Call<JsonObject> call = retrofitService.login(userData);
-                call.enqueue(new Callback<JsonObject>() {
+                Call<String> call = retrofitService.login(userData);
+                call.enqueue(new Callback<String>() {
                     @Override
-                    public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                            int a = 1;
-//                         int a= response.body()
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        if (response.code() == 200) {
+                            assert response.body() != null;
+                            saveUserId(Integer.parseInt(response.body()));
+                            Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "수신 실패", Toast.LENGTH_SHORT).show();
+                        }
+                    }
 
-                        Toast.makeText(getApplicationContext(),  Integer.toString(a)+"수신 성공", Toast.LENGTH_SHORT).show();
-                    }
                     @Override
-                    public void onFailure(Call<JsonObject> call, Throwable t) {
-                        Toast.makeText(getApplicationContext(),  "수신 실패", Toast.LENGTH_SHORT).show();
+                    public void onFailure(Call<String> call, Throwable t) {
+                        Toast.makeText(getApplicationContext(), "수신 실패", Toast.LENGTH_SHORT).show();
                     }
+
                 });
                 break;
         }
@@ -96,5 +108,4 @@ public class LoginActivity extends AppCompatActivity {
         editor.putInt(Constants.USER_ID_KEY, userId);
         editor.apply();
     }
-
 }

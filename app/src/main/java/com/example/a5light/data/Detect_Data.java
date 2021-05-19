@@ -6,35 +6,44 @@ import com.google.gson.annotations.SerializedName;
 
 public class Detect_Data {
 
-    @SerializedName("thumbnailUrl")
-    private String detect_thumbnail;
-@SerializedName("title")
-    private String detect_name;
-@SerializedName("url")
-    private String detect_date;
+    @SerializedName("thumbnail")
+    private String thumbnail;
 
-    public String getDetect_thumbnail() {
-        return detect_thumbnail;
+    @SerializedName("user_id")
+    private int userId;
+
+    @SerializedName("id")
+    private int id;
+
+    @SerializedName("video")
+    private String video;
+
+    @SerializedName("object")
+    private String object;
+    @SerializedName("dateTime")
+    private String dateTime;
+
+    public String getThumbnail(){
+        return thumbnail;
     }
 
-    public void setDetect_thumbnail(String detect_thumbnail) {
-        this.detect_thumbnail = detect_thumbnail;
+    public int getUserId(){
+        return userId;
     }
 
-    public String getDetect_name() {
-        return detect_name;
+    public int getId(){
+        return id;
     }
 
-    public void setDetect_name(String detect_name) {
-        this.detect_name = detect_name;
+    public String getVideo(){
+        return video;
     }
 
-    public String getDetect_date() {
-        return detect_date;
+    public String getObject(){
+        return object;
     }
 
-    public void setDetect_date(String detect_date) {
-        this.detect_date = detect_date;
+    public String getDateTime() {
+        return dateTime;
     }
-
 }

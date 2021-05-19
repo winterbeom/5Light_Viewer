@@ -85,7 +85,7 @@ public class Frag1 extends Fragment
 
             // we are setting our exoplayer
             // when it is ready.
-            exoPlayer.setPlayWhenReady(true);
+//            exoPlayer.setPlayWhenReady(true);
 
         } catch (Exception e) {
             // below line is used for

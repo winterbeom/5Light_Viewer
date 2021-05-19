@@ -22,6 +22,7 @@
                 android:textSize="20dp"
                 android:layout_marginLeft="5sp"
                 android:id="@+id/detect_name"
+                android:textColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="디텍션 객체 이름:"/>
@@ -30,6 +31,7 @@
                 android:id="@+id/detect_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:text="2021.05.03"
                 />
 

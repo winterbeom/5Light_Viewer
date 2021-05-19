@@ -17,8 +17,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.a5light.constants.Constants;
 import com.example.a5light.data.Detect_Data;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
@@ -57,24 +62,42 @@ public class Frag2 extends Fragment {
 
 
         RetrofitService retrofitService = ApiClient.getClient().create(RetrofitService.class);
-        Call<List<Detect_Data>> call = retrofitService.getData(Integer.toString(getUserId()));
-        call.enqueue(new Callback<List<Detect_Data>>() {
-
-
+        Call<JsonObject> call = retrofitService.getData(Integer.toString(getUserId()));
+        call.enqueue(new Callback<JsonObject>() {
             @Override
-            public void onResponse(Call<List<Detect_Data>> call, Response<List<Detect_Data>> response) {
-
-                dataList = response.body();
-                dataList = dataList.subList(0, 10);
-                recyclerAdapter = new RecyclerAdapter(dataList);
-                recyclerView.setAdapter(recyclerAdapter);
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                if (response.code() == 200) {
+                    Gson gson = new Gson();
+                    JsonArray jsonArray = response.body().getAsJsonArray("user");
+                    Detect_Data[] detect_data_arr = gson.fromJson(jsonArray,Detect_Data[].class);
+                    List<Detect_Data> detect_data = Arrays.asList(detect_data_arr);
+                    recyclerAdapter = new RecyclerAdapter(detect_data);
+                    recyclerView.setAdapter(recyclerAdapter);
+                }
             }
 
             @Override
-            public void onFailure(Call<List<Detect_Data>> call, Throwable t) {
+            public void onFailure(Call<JsonObject> call, Throwable t) {
 
             }
         });
+//        call.enqueue(new Callback<List<Detect_Data>>() {
+//
+//
+//            @Override
+//            public void onResponse(Call<List<Detect_Data>> call, Response<List<Detect_Data>> response) {
+//
+//                dataList = response.body();
+//                dataList = dataList.subList(0, 10);
+//                recyclerAdapter = new RecyclerAdapter(dataList);
+//                recyclerView.setAdapter(recyclerAdapter);
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Detect_Data>> call, Throwable t) {
+//
+//            }
+//        });
 
 
         return view;

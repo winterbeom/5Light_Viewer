@@ -9,6 +9,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -18,12 +19,13 @@ public interface RetrofitService {
     Call<JsonObject> register(@Body UserData userData);
 
     @POST("/login/")
-    Call<JsonObject> login(@Body UserData userData);
+    Call<String> login(@Body UserData userData);
 
     @GET("/videos/{mId}")
-    Call<List<Detect_Data>> getData(@Path("mId") String mId);
+    Call<JsonObject> getData(@Path("mId") String mId);
 
-    @POST("/updateToken/{mId}")
-    Call<JsonObject> updateToken(@Path("mId") String mId, @Field("token") String token);
+    @FormUrlEncoded
+    @POST("/token/")
+    Call<JsonObject> updateToken(@Field("id") String mId, @Field("token") String token);
 
 }

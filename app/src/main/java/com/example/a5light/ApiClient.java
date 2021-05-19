@@ -1,20 +1,39 @@
 package com.example.a5light;
 
+import com.example.a5light.constants.Constants;
+
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
-    public static String BASE_URL = "http://ec2-3-37-7-216.ap-northeast-2.compute.amazonaws.com:8080/";
-//https://jsonplaceholder.typicode.com/
+    //https://jsonplaceholder.typicode.com/
     private static Retrofit retrofit;
-    public static Retrofit getClient(){
 
-        if(retrofit == null){
+    public static Retrofit getClient() {
+
+        if (retrofit == null) {
+            OkHttpClient client = new OkHttpClient.Builder().addInterceptor(httpLoggingInterceptor()).build();
             retrofit = new Retrofit.Builder()
-                    .baseUrl(BASE_URL)
+                    .baseUrl(Constants.BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
+                    .client(client)
                     .build();
         }
         return retrofit;
+    }
+
+
+    public static HttpLoggingInterceptor httpLoggingInterceptor() {
+
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
+            @Override
+            public void log(String message) {
+                android.util.Log.e("5Light :", message + "");
+            }
+        });
+
+        return interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
     }
 }

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;
+import com.example.a5light.constants.Constants;
 import com.example.a5light.data.Detect_Data;
 
 import java.util.List;
@@ -27,9 +28,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
 
     public RecyclerAdapter(List<Detect_Data> dataList) {
-        this.dataList =dataList;
+        this.dataList = dataList;
     }
-
 
 
     @Override
@@ -42,23 +42,17 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     }
 
 
-
-
     // onBindViewHolder : Adapter class
     // position에 해당하는 데이터를 표시. 실제화면에 데이터와 레이아웃을 연결
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Detect_Data item = dataList.get(position);
 
-        GlideUrl url = new GlideUrl(item.getDetect_thumbnail(),new LazyHeaders.Builder()
-                .addHeader("User-Agent", "your-user-agent")
-                .build());
-
-        Glide. with(holder.detect_thumbnail.getContext())
-                .load(url)
+        Glide.with(holder.detect_thumbnail.getContext())
+                .load(Constants.BASE_URL + item.getThumbnail())
                 .error(R.drawable.ic_launcher_foreground)
                 .into(holder.detect_thumbnail);
-        holder.detect_date.setText(""+item.getDetect_date());
-        holder.detect_name.setText(""+item.getDetect_name());
+        holder.detect_date.setText(item.getDateTime());
+        holder.detect_name.setText(item.getObject());
 
 
     }
@@ -85,19 +79,18 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             detect_thumbnail = itemView.findViewById(R.id.detect_thumbnail);
 
             itemView.setClickable(true);
-            itemView.setOnClickListener(new View.OnClickListener(){
+            itemView.setOnClickListener(new View.OnClickListener() {
 
 
                 @Override
                 public void onClick(View view) {
                     int position = getAdapterPosition();
-                    Toast.makeText(view.getContext(),"클릭 되었습니다", Toast.LENGTH_SHORT).show();
-                intent = new Intent(view.getContext(),Detail.class);
-                intent.putExtra("number", position);
-                intent.putExtra("url",dataList.get(position).getDetect_thumbnail());
-                intent.putExtra("name",dataList.get(position).getDetect_name());
-                intent.putExtra("date",dataList.get(position).getDetect_date());
-                view.getContext().startActivity(intent);
+                    intent = new Intent(view.getContext(), Detail.class);
+                    intent.putExtra("number", position);
+                    intent.putExtra("url", dataList.get(position).getVideo());
+                    intent.putExtra("name", dataList.get(position).getObject());
+                    intent.putExtra("date", dataList.get(position).getObject());
+                    view.getContext().startActivity(intent);
                 }
             });
         }
