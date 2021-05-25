@@ -66,8 +66,8 @@ public class Detail extends AppCompatActivity {
         detail_date = findViewById(R.id.detail_date);
         detail_name = findViewById(R.id.detail_name);
 
-        detail_name.setText("이름"+name);
-        detail_date.setText("날짜"+date);
+        detail_name.setText(name);
+        detail_date.setText("날짜: "+date);
 
         exoPlayerView = findViewById(R.id.player_view);
         try {

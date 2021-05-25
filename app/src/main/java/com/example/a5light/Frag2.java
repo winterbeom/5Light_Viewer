@@ -24,6 +24,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -71,6 +72,7 @@ public class Frag2 extends Fragment {
                     JsonArray jsonArray = response.body().getAsJsonArray("user");
                     Detect_Data[] detect_data_arr = gson.fromJson(jsonArray,Detect_Data[].class);
                     List<Detect_Data> detect_data = Arrays.asList(detect_data_arr);
+                    Collections.reverse(detect_data);
                     recyclerAdapter = new RecyclerAdapter(detect_data);
                     recyclerView.setAdapter(recyclerAdapter);
                 }

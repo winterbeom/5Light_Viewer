@@ -61,7 +61,7 @@ public class Frag1 extends Fragment
             exoPlayer = ExoPlayerFactory.newSimpleInstance(inflater.getContext(), trackSelector);
 
             DataSource.Factory dataSourceFactory1 = new DefaultDataSourceFactory(requireActivity(), Util.getUserAgent(requireActivity(), requireActivity().getPackageName()));
-            MediaSource firstSource = new ExtractorMediaSource.Factory(dataSourceFactory1).createMediaSource(RawResourceDataSource.buildRawResourceUri(R.raw.panorama_sample));
+            MediaSource firstSource = new ExtractorMediaSource.Factory(dataSourceFactory1).createMediaSource(RawResourceDataSource.buildRawResourceUri(R.raw.panorama_sample_night));
 
             exoPlayerView.setPlayer(exoPlayer);
 

@@ -89,7 +89,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                     intent.putExtra("number", position);
                     intent.putExtra("url", dataList.get(position).getVideo());
                     intent.putExtra("name", dataList.get(position).getObject());
-                    intent.putExtra("date", dataList.get(position).getObject());
+                    intent.putExtra("date", dataList.get(position).getDateTime());
                     view.getContext().startActivity(intent);
                 }
             });
